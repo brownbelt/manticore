@@ -84,12 +84,11 @@ def ethereum_cli(args):
     while new_coverage != last_coverage and new_coverage < 100:
 
         symbolic_data = m.make_symbolic_buffer(320)
-        symbolic_value = m.make_symbolic_value()
 
         m.transaction(caller=attacker_account,
                          address=contract_account,
                          data=symbolic_data,
-                         value=symbolic_value )
+                         value=0)
 
         tx_count += 1
         last_coverage = new_coverage
