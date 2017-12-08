@@ -44,6 +44,8 @@ def parse_arguments():
                         help="Path to program, and arguments ('+' in arguments indicates symbolic byte).")
     parser.add_argument('--timeout', type=int, default=0,
                         help='Timeout. Abort exploration aftr TIMEOUT seconds')
+    parser.add_argument('--tx', type=int, default=1,
+                        help='Number of symbolic transactions to be executed. Defaults to 1. A value of 0 means execute until no new coverage is found (ethereum only)')
     parser.add_argument('-v', action='count', default=1,
                         help='Specify verbosity level from -v to -vvvv')
     parser.add_argument('--workspace', type=str, default=None,
@@ -99,6 +101,9 @@ def ethereum_cli(args):
 
     for state in m.all_states:
         print str(state.context['last_exception'])
+
+        if args.tx and tx_count >= args.tx:
+            break
 
     # for state in seth.all_states:
     #     blockchain = state.platform
