@@ -87,7 +87,7 @@ def ethereum_cli(args):
         m.transaction(caller=attacker_account,
                          address=contract_account,
                          data=symbolic_data,
-                         value=symbolic_value )
+                         value=0 )
 
         tx_count += 1
         last_coverage = new_coverage
@@ -97,8 +97,15 @@ def ethereum_cli(args):
         print "[+] There are %d reverted states now"% len(m.terminated_state_ids)
         print "[+] There are %d alive states now"% len(m.running_state_ids)
 
-    for state in m.all_states:
-        print str(state.context['last_exception'])
+        for state in m.all_states:
+            print str(state.context['last_exception'])
+            # print map(hex, state.context['seth.trace'])
+            t = state.context['seth.trace']
+            tt = [b for a,b in t if isinstance(b, int)]
+            print map(hex, tt)
+            print 0x99 in tt
+            print 0x7a in tt
+            print map(hex, state.context['trace'])
 
     # for state in seth.all_states:
     #     blockchain = state.platform

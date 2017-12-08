@@ -1245,6 +1245,7 @@ class EVM(Eventful):
         self._publish( 'will_decode_instruction', self.pc)
         last_pc = self.pc
         current = self.instruction
+        print self.address, hex(self.pc), current
 
         self._publish( 'will_execute_instruction', self.pc, current)
         #Consume some gas
